@@ -23,11 +23,13 @@ app.post('/', function(req, res) {
 
   var pushSubscription = {
     endpoint: pushData.endpoint,
-    key: pushData.key,
-    auth: pushData.authSecret
+    keys: {
+      auth: pushData.authSecret,
+      p256dh: pushData.key
+    }
   };
 
-  var payload = pushData.payload || null;
+  var payload = JSON.stringify(pushData.payload) || null;
 
   var options = {};
   var optionsNames = ['gcmAPIKey', 'vapidDetails', 'TTL', 'headers'];
@@ -39,9 +41,9 @@ app.post('/', function(req, res) {
 
   webpush.sendNotification(pushSubscription, payload, options)
     .then(function(result) {
-      res.status(result.statusCode).send(result.body);
+      return res.status(result.statusCode).send(result.body || 'ok');
     }, function(err) {
-      res.status(err.statusCode).send(err.body);
+      return res.status(400).send('' + err);
     });
 });
 
