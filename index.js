@@ -54,7 +54,7 @@ app.get('/generatevapid', function(req, res) {
 var port = process.env.WEBPUSHPROXY_PORT || 4443;
 
 https.createServer({
-  key: fs.readFileSync('./certs/key.pem'),
-  cert: fs.readFileSync('./certs/cert.pem')
+  key: fs.readFileSync(process.env.WEBPUSHPROXY_KEY || './certs/key.pem'),
+  cert: fs.readFileSync(process.env.WEBPUSHPROXY_CERT || './certs/cert.pem')
 }, app).listen(port);
 console.log('Server started at port', port);
