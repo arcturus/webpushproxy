@@ -1,0 +1,23 @@
+{
+  "name": "webpushproxy",
+  "version": "1.0.0",
+  "description": "Http service that proxies webpush messages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arcturus/webpushproxy.git"
+  },
+  "keywords": [
+    "webpush",
+    "proxy"
+  ],
+  "author": "Francisco Jordano <francisco@jordano.es>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=v4.0.0 <=v4.8.1"
+  },
+  "engine-strict" : true
+}
