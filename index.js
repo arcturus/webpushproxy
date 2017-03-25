@@ -1,6 +1,4 @@
-var fs = require('fs')
-    , https = require('https')
-    , express = require('express')
+var express = require('express')
     , webpush = require('web-push')
     , app = express();
 
@@ -53,10 +51,7 @@ app.get('/generatevapid', function(req, res) {
 });
 
 
-var port = process.env.WEBPUSHPROXY_PORT || 4443;
-
-https.createServer({
-  key: fs.readFileSync(process.env.WEBPUSHPROXY_KEY || './certs/key.pem'),
-  cert: fs.readFileSync(process.env.WEBPUSHPROXY_CERT || './certs/cert.pem')
-}, app).listen(port);
-console.log('Server started at port', port);
+var port = process.env.WEBPUSHPROXY_PORT || 8080;
+app.listen(port, function() {
+  console.log('Server started at port', port);
+});
