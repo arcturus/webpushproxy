@@ -51,7 +51,9 @@ app.get('/generatevapid', function(req, res) {
 });
 
 
-var port = process.env.WEBPUSHPROXY_PORT || 8080;
-app.listen(port, function() {
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var ip = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
+app.listen(port, ip, function() {
   console.log('Server started at port', port);
 });
