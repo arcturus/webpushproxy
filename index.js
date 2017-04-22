@@ -33,7 +33,11 @@ app.post('/', function(req, res) {
   var optionsNames = ['gcmAPIKey', 'vapidDetails', 'TTL', 'headers'];
   optionsNames.forEach(function(option) {
     if (pushData[option]) {
-      options[option] = pushData[option];
+      try {
+	      options[option] = JSON.parse(pushData[option].trim());
+      } catch (e) {
+        options[option] = pushData[option]
+      }
     }
   });
 
@@ -41,6 +45,7 @@ app.post('/', function(req, res) {
     .then(function(result) {
       return res.status(result.statusCode).send(result.body || 'ok');
     }, function(err) {
+      console.log(err);
       return res.status(400).send('' + err);
     });
 });
@@ -51,8 +56,8 @@ app.get('/generatevapid', function(req, res) {
 });
 
 
-var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var ip = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+var port = process.env.NODEJS_PORT || 8080;
+var ip = process.env.NODEJS_IP || '0.0.0.0';
 
 app.listen(port, ip, function() {
   console.log('Server started at port', port);
